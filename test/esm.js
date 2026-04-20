@@ -29,6 +29,7 @@ describe('import()', () => {
             'hmacWithPassword',
             'macFormatVersion',
             'macPrefix',
+            'module.exports',
             'seal',
             'unseal'
         ]);
