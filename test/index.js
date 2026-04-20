@@ -288,44 +288,44 @@ describe('Iron', () => {
 
         it('unseals a ticket', async () => {
 
-            const ticket = 'Fe26.2**0cdd607945dd1dffb7da0b0bf5f1a7daa6218cbae14cac51dcbd91fb077aeb5b*aOZLCKLhCt0D5IU1qLTtYw*g0ilNDlQ3TsdFUqJCqAm9iL7Wa60H7eYcHL_5oP136TOJREkS3BzheDC1dlxz5oJ**05b8943049af490e913bbc3a2485bee2aaf7b823f4c41d0ff0b7c168371a3772*R8yscVdTBRMdsoVbdDiFmUL8zb-c3PQLGJn4Y8C-AqI';
+            const ticket = 'Fe26.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM**d4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8*l11NAmwLw6NmS4UYTiNR38rXWWWffpXm7XcgyRrRbk4';
             const unsealed = await Iron.unseal(ticket, password, Iron.defaults);
             expect(unsealed).to.equal(obj);
         });
 
         it('returns an error when number of sealed components is wrong', async () => {
 
-            const ticket = 'x*Fe26.2**a6dc6339e5ea5dfe7a135631cf3b7dcf47ea38246369d45767c928ea81781694*D3DLEoi-Hn3c972TPpZXqw*mCBhmhHhRKk9KtBjwu3h-1lx1MHKkgloQPKRkQZxpnDwYnFkb3RqdVTQRcuhGf4M**ff2bf988aa0edf2b34c02d220a45c4a3c572dac6b995771ed20de58da919bfa5*HfWzyJlz_UP9odmXvUaVK1TtdDuOCaezr-TAg2GjBCU';
+            const ticket = 'x*Fe26.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM**d4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8*l11NAmwLw6NmS4UYTiNR38rXWWWffpXm7XcgyRrRbk4';
             const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject('Incorrect number of sealed components');
             expect(err.isBoom).to.be.true();
         });
 
         it('returns an error when password is missing', async () => {
 
-            const ticket = 'Fe26.2**a6dc6339e5ea5dfe7a135631cf3b7dcf47ea38246369d45767c928ea81781694*D3DLEoi-Hn3c972TPpZXqw*mCBhmhHhRKk9KtBjwu3h-1lx1MHKkgloQPKRkQZxpnDwYnFkb3RqdVTQRcuhGf4M**ff2bf988aa0edf2b34c02d220a45c4a3c572dac6b995771ed20de58da919bfa5*HfWzyJlz_UP9odmXvUaVK1TtdDuOCaezr-TAg2GjBCU';
+            const ticket = 'Fe26.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM**d4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8*l11NAmwLw6NmS4UYTiNR38rXWWWffpXm7XcgyRrRbk4';
             const err = await expect(Iron.unseal(ticket, null, Iron.defaults)).to.reject('Empty password');
             expect(err.isBoom).to.be.true();
         });
 
         it('returns an error when mac prefix is wrong', async () => {
 
-            const ticket = 'Fe27.2**a6dc6339e5ea5dfe7a135631cf3b7dcf47ea38246369d45767c928ea81781694*D3DLEoi-Hn3c972TPpZXqw*mCBhmhHhRKk9KtBjwu3h-1lx1MHKkgloQPKRkQZxpnDwYnFkb3RqdVTQRcuhGf4M**ff2bf988aa0edf2b34c02d220a45c4a3c572dac6b995771ed20de58da919bfa5*HfWzyJlz_UP9odmXvUaVK1TtdDuOCaezr-TAg2GjBCU';
+            const ticket = 'Fe27.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM**d4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8*l11NAmwLw6NmS4UYTiNR38rXWWWffpXm7XcgyRrRbk4';
             const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject('Wrong mac prefix');
             expect(err.isBoom).to.be.true();
         });
 
         it('returns an error when integrity check fails', async () => {
 
-            const ticket = 'Fe26.2**b3ad22402ccc60fa4d527f7d1c9ff2e37e9b2e5723e9e2ffba39a489e9849609*QKCeXLs6Rp7f4LL56V7hBg*OvZEoAq_nGOpA1zae-fAtl7VNCNdhZhCqo-hWFCBeWuTTpSupJ7LxQqzSQBRAcgw**72018a21d3fac5c1608a0f9e461de0fcf17b2befe97855978c17a793faa01db1*Qj53DFE3GZd5yigt-mVl9lnp0VUoSjh5a5jgDmod1EZ';
+            const ticket = 'Fe26.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM**d4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8*l11NAmwLw6NmS4UYTiNR38rXWWWffpXm7XcgyRrRbkA';
             const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject('Bad hmac value');
             expect(err.isBoom).to.be.true();
         });
 
         it('returns an error when decryption fails', async () => {
 
-            const macBaseString = 'Fe26.2**a6dc6339e5ea5dfe7a135631cf3b7dcf47ea38246369d45767c928ea81781694*D3DLEoi-Hn3c972TPpZXqw*mCBhmhHhRKk9KtBjwu3h-1lx1MHKkgloQPKRkQZxpnDwYnFkb3RqdVTQRcuhGf4M??*';
+            const macBaseString = 'Fe26.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM??*';
             const options = Hoek.clone(Iron.defaults.integrity);
-            options.salt = 'ff2bf988aa0edf2b34c02d220a45c4a3c572dac6b995771ed20de58da919bfa5';
+            options.salt = 'd4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8';
             const mac = await Iron.hmacWithPassword(password, options, macBaseString);
             const ticket = macBaseString + '*' + mac.salt + '*' + mac.digest;
             const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject('Invalid character');
@@ -334,9 +334,9 @@ describe('Iron', () => {
 
         it('returns an error when iv base64 decoding fails', async () => {
 
-            const macBaseString = 'Fe26.2**a6dc6339e5ea5dfe7a135631cf3b7dcf47ea38246369d45767c928ea81781694*D3DLEoi-Hn3c972TPpZXqw??*mCBhmhHhRKk9KtBjwu3h-1lx1MHKkgloQPKRkQZxpnDwYnFkb3RqdVTQRcuhGf4M*';
+            const macBaseString = 'Fe26.2**fc7b20c22abcd5cfd51729fa19ea5f9d3650f75b26c23215f63855b0aab4ea11*b7LmuSm2axTpmRLvmm15tQ??*yChPpojiXEEL1udXwpt98LtpOnq4-OdUWrxXKOLD9gopVK1BgYSc9Dbv3fAbO1SM*';
             const options = Hoek.clone(Iron.defaults.integrity);
-            options.salt = 'ff2bf988aa0edf2b34c02d220a45c4a3c572dac6b995771ed20de58da919bfa5';
+            options.salt = 'd4a78766a6bca4f51b4277a4e44e0b412c9b3fcbcb65049e13ed32dbf3b7f9a8';
             const mac = await Iron.hmacWithPassword(password, options, macBaseString);
             const ticket = macBaseString + '*' + mac.salt + '*' + mac.digest;
             const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject('Invalid character');
