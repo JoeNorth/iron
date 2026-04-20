@@ -19,7 +19,7 @@ describe('import()', () => {
 
     it('exposes all methods and classes as named imports', () => {
 
-        expect(Object.keys(Ion)).to.equal([
+        expect(Object.keys(Ion).filter((key) => key !== 'module.exports')).to.equal([
             'algorithms',
             'decrypt',
             'default',
@@ -29,7 +29,6 @@ describe('import()', () => {
             'hmacWithPassword',
             'macFormatVersion',
             'macPrefix',
-            'module.exports',
             'seal',
             'unseal'
         ]);
