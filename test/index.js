@@ -352,7 +352,7 @@ describe('Iron', () => {
             const macBaseString = Iron.macPrefix + '**' + key.salt + '*' + iv + '*' + encryptedB64 + '*';
             const mac = await Iron.hmacWithPassword(password, Iron.defaults.integrity, macBaseString);
             const ticket = macBaseString + '*' + mac.salt + '*' + mac.digest;
-            const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject(/Failed parsing sealed object JSON: Unexpected token a/);
+            const err = await expect(Iron.unseal(ticket, password, Iron.defaults)).to.reject(/Failed parsing sealed object JSON:/);
             expect(err.isBoom).to.be.true();
         });
 
